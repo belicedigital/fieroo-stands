@@ -1,0 +1,24 @@
+{
+    "name": "fieroo/stands",
+    "description": "Fieroo Stands",
+    "type": "library",
+    "license": "EULA",
+    "autoload": {
+        "psr-4": {
+            "Fieroo\\Stands\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Francesco Passanante",
+            "email": "francescopassanante@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fieroo\\Stands\\Providers\\StandsProvider"
+            ]
+        }
+    }
+}
