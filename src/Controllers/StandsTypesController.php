@@ -4,7 +4,7 @@ namespace Fieroo\Stands\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\StandsType;
+use Fieroo\Stands\Models\StandsType;
 use Validator;
 use DB;
 use \Carbon\Carbon;
