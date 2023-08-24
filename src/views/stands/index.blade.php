@@ -41,7 +41,7 @@
                         @endforeach
                     </ul>
                 </div>
-                <div class="card-body p-0 py-3">
+                <div class="card-body p-3">
                     <div class="tab-content" id="custom-tabs-one-tabContent">
                         @foreach($modules as $key => $module)
                         <div class="tab-pane fade {{$key == 0 ? 'show active' : ''}}" id="tab--{{$module->id}}" role="tabpanel" aria-labelledby="tab-{{$module->id}}">

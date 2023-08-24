@@ -22,7 +22,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="card-body p-0 py-3">
+                <div class="card-body p-3">
                     <div class="tab-content" id="custom-tabs-one-tabContent">
                         <div class="tab-pane fade show active" id="it-pages-tab" role="tabpanel" aria-labelledby="it-tab">
                             <table class="table table-hover text-nowrap">

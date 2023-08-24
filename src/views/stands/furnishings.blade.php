@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body table-responsive p-0 py-3">
+                <div class="card-body table-responsive p-3">
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
