@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card card-tabs">
-                <div class="card-header p-0 pt-1">
+                <div class="card-header p-0">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="it-tab" data-toggle="pill" href="#it-pages-tab" role="tab" aria-controls="it-pages-tabe" aria-selected="true">IT</a>

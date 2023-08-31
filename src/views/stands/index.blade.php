@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card card-tabs">
-                <div class="card-header p-0 pt-1">
+                <div class="card-header p-0">
                     <ul class="nav nav-tabs" role="tablist">
                         @foreach($modules as $key => $module)
                         <li class="nav-item">
