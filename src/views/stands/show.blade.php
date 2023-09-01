@@ -12,7 +12,8 @@
             <div class="card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <a href="javascript:void(0);" onclick="assignImg(this)" role="button" data-toggle="modal" data-target="#modalImg"><img src="{{asset('upload/furnishings/'.$l->file_path)}}" class="w-100" style="height:250px;object-fit:contain;"></a>
+                        <a href="javascript:void(0);" onclick="assignImg(this)" role="button" data-toggle="modal" data-target="#modalImg"><img src="{{asset('img/furnishings/'.$l->file_path)}}" class="w-100" style="height:250px;object-fit:contain;"></a>
+                        {{-- <a href="javascript:void(0);" onclick="assignImg(this)" role="button" data-toggle="modal" data-target="#modalImg"><img src="{{asset('upload/furnishings/'.$l->file_path)}}" class="w-100" style="height:250px;object-fit:contain;"></a> --}}
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">

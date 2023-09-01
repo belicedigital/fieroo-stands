@@ -118,7 +118,8 @@
                                             {{$l->is_supplied ? ($l->extra_price ? 'N/A' : $l->max) : 'N/A'}}
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0);" onclick="assignImg(this)" role="button" data-toggle="modal" data-target="#modalImg"><img src="{{asset('upload/furnishings/'.$l->file_path)}}" class="table-img"></a>
+                                            <a href="javascript:void(0);" onclick="assignImg(this)" role="button" data-toggle="modal" data-target="#modalImg"><img src="{{asset('img/furnishings/'.$l->file_path)}}" class="table-img"></a>
+                                            {{-- <a href="javascript:void(0);" onclick="assignImg(this)" role="button" data-toggle="modal" data-target="#modalImg"><img src="{{asset('upload/furnishings/'.$l->file_path)}}" class="table-img"></a> --}}
                                         </td>
                                         @if(hasOrder($exhibitor_data->email_responsible))
                                         <td class="text-lg text-bold"><span data-total-partial="">{{$l->subtotal}}</span> €</td>
@@ -199,7 +200,8 @@
                 row.find('td[name="is_supplied"]').text(extra_price)
                 row.find('td[name="price"] span').text(data.data.price)
                 row.find('td[name="size"]').text(data.data.size)
-                let path = "{{asset('upload/furnishings')}}" + '/' + data.data.file_path
+                let path = "{{asset('img/furnishings')}}" + '/' + data.data.file_path
+                // let path = "{{asset('upload/furnishings')}}" + '/' + data.data.file_path
                 row.find('td a > img').attr('src', path)
                 row.find('[data-total-partial]').text()
                 row.attr({
