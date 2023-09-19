@@ -5,22 +5,14 @@ namespace Fieroo\Stands\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fieroo\Stands\Models\StandsType;
+use Fieroo\Stands\Models\StandsTypeTranslation;
 use Validator;
 use DB;
 use \Carbon\Carbon;
 
+
 class StandsTypesController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,19 +20,8 @@ class StandsTypesController extends Controller
      */
     public function index()
     {
-        $all = DB::table('stands_types_translations')
-            ->leftJoin('stands_types', 'stands_types_translations.stand_type_id', 'stands_types.id')
-            ->select('stands_types_translations.*')
-            ->get();
-        $it = [];
-        $en = [];
-        foreach($all as $a) {
-            if($a->locale === 'it') {
-                array_push($it, $a);
-            } else {
-                array_push($en, $a);
-            }
-        }
+        $it = StandsTypeTranslation::where('locale','it')->get();
+        $en = StandsTypeTranslation::where('locale','en')->get();
         return view('stands::stands-types.index', ['it' => $it, 'en' => $en]);
     }
 
@@ -64,7 +45,9 @@ class StandsTypesController extends Controller
     {
         $validation_data = [
             'name' => ['required', 'string', 'max:255'],
+            'name_en' => ['required', 'string', 'max:255'],
             'description' => ['required'],
+            'description_en' => ['required'],
             'price' => ['required', 'numeric'],
             'size' => ['required', 'integer'],
             'max_number_modules' => ['required', 'integer']
@@ -82,7 +65,7 @@ class StandsTypesController extends Controller
         try {
             $stand_type = StandsType::create();
 
-            $stand_type_translations = DB::table('stands_types_translations')->insert([
+            StandsTypeTranslation::insert([
                 [
                     'stand_type_id' => $stand_type->id,
                     'locale' => 'it',
@@ -97,12 +80,12 @@ class StandsTypesController extends Controller
                     'locale' => 'en',
                     'name' => $request->name_en,
                     'description' => $request->description_en,
-                    'price' => $request->price_en,
-                    'size' => $request->size_en,
-                    'max_number_modules' => $request->max_number_modules_en,
-                ]
+                    'price' => $request->price,
+                    'size' => $request->size,
+                    'max_number_modules' => $request->max_number_modules,
+                ],
             ]);
-
+            
             $entity_name = trans('entities.stands_types');
             return redirect('admin/stands-types')->with('success', trans('forms.created_success',['obj' => $entity_name]));
         } catch(\Exception $e) {
@@ -122,14 +105,7 @@ class StandsTypesController extends Controller
      */
     public function edit($id)
     {
-        $stand = DB::table('stands_types_translations')
-            ->leftJoin('stands_types', 'stands_types_translations.stand_type_id', 'stands_types.id')
-            ->where('stands_types_translations.id', '=', $id)
-            ->select('stands_types_translations.*')
-            ->first();
-        if(is_null($stand) || !is_object($stand)) {
-            abort(404);
-        }
+        $stand = StandsTypeTranslation::findOrFail($id);
         return view('stands::stands-types.edit', ['stand' => $stand]);
     }
 
@@ -162,13 +138,22 @@ class StandsTypesController extends Controller
         }
 
         try {
-            $update_stand_type = StandsType::find($request->stand_type_id);
+            $update_stand_type = StandsType::findOrFail($request->stand_type_id);
             $update_stand_type->updated_at = Carbon::now();
             $update_stand_type->save();
 
-            $stand_translations = DB::table('stands_types_translations')->where('id', '=', $id)->update([
-                'name' => $request->name,
-                'description' => $request->description,
+            $stand_translation = StandsTypeTranslation::findOrFail($id);
+            $stand_translation->name = $request->name;
+            $stand_translation->description = $request->description;
+            $stand_translation->price = $request->price;
+            $stand_translation->size = $request->size;
+            $stand_translation->max_number_modules = $request->max_number_modules;
+            $stand_translation->save();
+
+            $stand_other_lang = StandsTypeTranslation::where([
+                ['stand_type_id', '=', $request->stand_type_id],
+                ['locale', '!=', $stand_translation->locale],
+            ])->update([
                 'price' => $request->price,
                 'size' => $request->size,
                 'max_number_modules' => $request->max_number_modules,

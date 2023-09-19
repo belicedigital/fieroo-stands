@@ -14,6 +14,6 @@ class StandsType extends Model
 
     public function translations()
     {
-        return $this->hasMany(StandsTypeTranslation::class);
+        return $this->hasMany(StandsTypeTranslation::class, 'stand_type_id');
     }
 }
