@@ -63,6 +63,17 @@ class StandsTypesController extends Controller
         }
 
         try {
+
+            // check events limit for subscription
+            $request_to_api = Http::get('https://manager-fieroo.belicedigital.com/api/stripe/'.env('CUSTOMER_EMAIL').'/check-limit/max_stands');
+            if (!$request_to_api->successful()) {
+                throw new \Exception('API Error on get latest subscription');
+            }
+            $result_api = $request_to_api->json();
+            if(StandsType::all()->count() >= $result_api->value) {
+                throw new \Exception('Hai superato il limite di Stands previsti dal tuo piano di abbonamento, per inserire altri Stands dovrai passare ad un altro piano aumentando il limite di stands disponibili.');
+            }
+
             $stand_type = StandsType::create();
 
             StandsTypeTranslation::insert([
