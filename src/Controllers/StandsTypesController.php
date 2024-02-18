@@ -9,7 +9,7 @@ use Fieroo\Stands\Models\StandsTypeTranslation;
 use Validator;
 use DB;
 use \Carbon\Carbon;
-
+use Illuminate\Support\Facades\Http;
 
 class StandsTypesController extends Controller
 {
