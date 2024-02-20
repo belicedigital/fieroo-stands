@@ -67,7 +67,7 @@ class StandsTypesController extends Controller
             // check events limit for subscription
             $request_to_api = Http::get('https://manager-fieroo.belicedigital.com/api/stripe/'.env('CUSTOMER_EMAIL').'/check-limit/max_stands');
             if (!$request_to_api->successful()) {
-                throw new \Exception('API Error on get latest subscription');
+                throw new \Exception('API Error on get latest subscription '.$request_to_api->body());
             }
             $result_api = $request_to_api->json();
             if(StandsType::all()->count() >= $result_api->value) {
