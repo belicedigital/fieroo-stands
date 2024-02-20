@@ -71,9 +71,13 @@ class StandsTypesController extends Controller
                 throw new \Exception('API Error on get latest subscription for '.$url.' '.$request_to_api->body());
             }
             $result_api = $request_to_api->json();
-            if(StandsType::all()->count() >= $result_api->value) {
+            if(isset($result_api['value']) && StandsType::all()->count() >= $result_api['value']) {
                 throw new \Exception('Hai superato il limite di Stands previsti dal tuo piano di abbonamento, per inserire altri Stands dovrai passare ad un altro piano aumentando il limite di stands disponibili.');
             }
+            // $value = $result_api['value'];
+            // if(StandsType::all()->count() >= $result_api->value) {
+            //     throw new \Exception('Hai superato il limite di Stands previsti dal tuo piano di abbonamento, per inserire altri Stands dovrai passare ad un altro piano aumentando il limite di stands disponibili.');
+            // }
 
             $stand_type = StandsType::create();
 
