@@ -74,6 +74,7 @@ class StandsTypesController extends Controller
             if(isset($result_api['value']) && StandsType::all()->count() >= $result_api['value']) {
                 throw new \Exception('Hai superato il limite di Stands previsti dal tuo piano di abbonamento, per inserire altri Stands dovrai passare ad un altro piano aumentando il limite di stands disponibili.');
             }
+            
             // $value = $result_api['value'];
             // if(StandsType::all()->count() >= $result_api->value) {
             //     throw new \Exception('Hai superato il limite di Stands previsti dal tuo piano di abbonamento, per inserire altri Stands dovrai passare ad un altro piano aumentando il limite di stands disponibili.');
