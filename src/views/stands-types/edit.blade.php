@@ -36,7 +36,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>{{ trans('forms.description') }}</strong>
-                                        <textarea name="description" class="form-control">{{ $stand->description }}</textarea>
+                                        <textarea name="description" class="form-control summernote">{{ $stand->description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -72,6 +72,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            $('.summernote').summernote();
+            $('.note-btn-group.btn-group.note-insert').hide()
+
             $('input[name="price"]').on('keyup change', function(e) {
                 if (e.keyCode == 188) {
                     e.preventDefault();

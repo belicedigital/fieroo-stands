@@ -49,7 +49,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>{{ trans('forms.description') }}</strong>
-                                                <textarea name="description" class="form-control" value="{{ old('description') }}"></textarea>
+                                                <textarea name="description" class="form-control summernote" value="{{ old('description') }}"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -93,7 +93,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>{{ trans('forms.description') }}</strong>
-                                                <textarea name="description_en" class="form-control" value="{{ old('description_en') }}"></textarea>
+                                                <textarea name="description_en" class="form-control summernote" value="{{ old('description_en') }}"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -133,6 +133,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            $('.summernote').summernote();
+            $('.note-btn-group.btn-group.note-insert').hide()
+
             $('input').on('keyup change', function(e) {
                 let $type = $(this).attr('type');
                 let $name = $(this).attr('name');
