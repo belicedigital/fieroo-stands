@@ -72,7 +72,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.summernote').summernote();
+            $('.summernote').summernote({
+                disableDragAndDrop: true,
+            });
             $('.note-btn-group.btn-group.note-insert').hide()
 
             $('input[name="price"]').on('keyup change', function(e) {

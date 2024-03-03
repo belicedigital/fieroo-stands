@@ -133,7 +133,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.summernote').summernote();
+            $('.summernote').summernote({
+                disableDragAndDrop: true,
+            });
             $('.note-btn-group.btn-group.note-insert').hide()
 
             $('input').on('keyup change', function(e) {
