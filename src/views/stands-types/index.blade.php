@@ -145,9 +145,9 @@
 @section('title', trans('entities.stands_types'))
 @section('title_header', trans('entities.stands_types'))
 
-@section('buttons')
-    <a href="{{ url('admin/stands-types/create') }}" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
-        title="{{ trans('generals.add') }}"><i class="fas fa-plus"></i></a>
+@section('button')
+    <a href="{{ url('admin/stands-types/create') }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+        data-bs-original-title="{{ trans('generals.add') }}"><i class="fas fa-plus"></i></a>
 @endsection
 
 @section('path', trans('entities.stands_types'))
@@ -170,13 +170,6 @@
                                     aria-selected="false">EN</button>
                             </li>
                         </ul>
-                        <div class="dt-action-buttons text-end pt-3 pt-md-0">
-                            <a href="{{ url('admin/stands-types/create') }}"
-                                class="btn btn-secondary create-new btn-primary waves-effect waves-light"
-                                data-toggle="tooltip" data-placement="bottom"><span><i class="ti ti-plus me-sm-1"></i>
-                                    <span class="d-none d-sm-inline-block">{{ trans('generals.add') }}</span>
-                                </span></a>
-                        </div>
                     </div>
                     <div class="tab-content" id="custom-tabs-one-tabContent">
                         <div class="tab-pane fade show active" id="it-pages-tab" role="tabpanel" aria-labelledby="it-tab">
