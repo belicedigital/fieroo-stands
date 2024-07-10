@@ -177,7 +177,7 @@
     <script>
         const editors = document.querySelectorAll('.quillEditor');
         initEditors(editors, 'myForm', {
-            description: {!! json_encode($page->description) !!},
+            description: {!! json_encode($stand->description) !!},
         })
         $(document).ready(function() {
             // $('.summernote').summernote({
