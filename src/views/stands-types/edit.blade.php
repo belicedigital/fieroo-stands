@@ -179,9 +179,6 @@
         initEditors(editors, 'myForm', {
             description: {!! json_encode($stand->description) !!},
         })
-        const priceInput = document.querySelector('input[name="price"]');
-        priceInput.addEventListener('keyup', handleInputEvent);
-        priceInput.addEventListener('change', handleInputEvent);
 
         const handleInputEvent = (e) => {
             if (e.keyCode === 188) {
@@ -189,6 +186,11 @@
                 this.value = this.value.replace(/,/g, '.');
             }
         }
+
+        const priceInput = document.querySelector('input[name="price"]');
+        priceInput.addEventListener('keyup', handleInputEvent);
+        priceInput.addEventListener('change', handleInputEvent);
+
         // $(document).ready(function() {
         //     // $('.summernote').summernote({
         //     //     disableDragAndDrop: true,
