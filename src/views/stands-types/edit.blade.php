@@ -183,7 +183,7 @@
         const handleInputEvent = (e) => {
             if (e.keyCode === 188) {
                 e.preventDefault();
-                this.value = this.value.replace(/,/g, '.');
+                e.target.value = e.target.value.replace(/,/g, '.');
             }
         }
 
