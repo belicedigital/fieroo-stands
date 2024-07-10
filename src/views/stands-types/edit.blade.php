@@ -172,13 +172,12 @@
     <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
 @endsection
 
-
 @section('page-script')
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         const editors = document.querySelectorAll('.quillEditor');
         initEditors(editors, 'myForm', {
-            description: @json($stand->description),
+            description: {!! json_encode($stand->description) !!},
         })
         const priceInput = document.querySelector('input[name="price"]');
         priceInput.addEventListener('keyup', handleInputEvent);
