@@ -172,6 +172,7 @@
     <script src="{{ asset('assets/vendor/libs/quill/quill.js') }}"></script>
 @endsection
 
+
 @section('page-script')
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
