@@ -179,32 +179,42 @@
         initEditors(editors, 'myForm', {
             description: {!! json_encode($stand->description) !!},
         })
-        $(document).ready(function() {
-            // $('.summernote').summernote({
-            //     disableDragAndDrop: true,
-            // });
-            // $('.note-btn-group.btn-group.note-insert').hide()
+        const priceInput = document.querySelector('input[name="price"]');
+        priceInput.addEventListener('keyup', handleInputEvent);
+        priceInput.addEventListener('change', handleInputEvent);
 
-            $('input[name="price"]').on('keyup change', function(e) {
-                if (e.keyCode == 188) {
-                    e.preventDefault();
-                    this.value = this.value.replace(/,/g, '.');
-                }
-            });
+        const handleInputEvent = (e) => {
+            if (e.keyCode === 188) {
+                e.preventDefault();
+                this.value = this.value.replace(/,/g, '.');
+            }
+        }
+        // $(document).ready(function() {
+        //     // $('.summernote').summernote({
+        //     //     disableDragAndDrop: true,
+        //     // });
+        //     // $('.note-btn-group.btn-group.note-insert').hide()
 
-            // const fullEditorDesc = createFullEditor('#description-editor');
+        //     $('input[name="price"]').on('keyup change', function(e) {
+        //         if (e.keyCode == 188) {
+        //             e.preventDefault();
+        //             this.value = this.value.replace(/,/g, '.');
+        //         }
+        //     });
 
-            // // Inizializza i campi
-            // var initDesc = {!! json_encode(old('description', $stand->description)) !!};
-            // var desc = JSON.parse(initDesc);
-            // fullEditorDesc.setContents(desc);
+        //     // const fullEditorDesc = createFullEditor('#description-editor');
 
-            // // Aggiorna i campi nascosti con il contenuto degli editor
-            // const form = document.getElementById('myForm');
-            // form.addEventListener('submit', () => {
-            //     desc = fullEditorDesc.getContents();
-            //     document.getElementById('description').value = JSON.stringify(desc);
-            // });
-        });
+        //     // // Inizializza i campi
+        //     // var initDesc = {!! json_encode(old('description', $stand->description)) !!};
+        //     // var desc = JSON.parse(initDesc);
+        //     // fullEditorDesc.setContents(desc);
+
+        //     // // Aggiorna i campi nascosti con il contenuto degli editor
+        //     // const form = document.getElementById('myForm');
+        //     // form.addEventListener('submit', () => {
+        //     //     desc = fullEditorDesc.getContents();
+        //     //     document.getElementById('description').value = JSON.stringify(desc);
+        //     // });
+        // });
     </script>
 @endsection
