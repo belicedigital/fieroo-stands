@@ -177,7 +177,7 @@
     <script>
         const editors = document.querySelectorAll('.quillEditor');
         initEditors(editors, 'myForm', {
-            description: {!! json_encode($stand->description) !!},
+            description: @json($stand->description),
         })
         const priceInput = document.querySelector('input[name="price"]');
         priceInput.addEventListener('keyup', handleInputEvent);
