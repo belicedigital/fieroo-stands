@@ -127,8 +127,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group mb-3">
                                     <label class="form-label fs-6 fw-bolder">{{ trans('forms.description') }}</label>
-                                    <div id="description-editor"></div>
-                                    <textarea name="description" id="description" class="form-control" style="display: none;"></textarea>
+                                    <div id="description" name="description" class="quillEditor"></div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -176,6 +175,10 @@
 @section('page-script')
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
+        const editors = document.querySelectorAll('.quillEditor');
+        initEditors(editors, 'myForm', {
+            description: {!! json_encode($page->description) !!},
+        })
         $(document).ready(function() {
             // $('.summernote').summernote({
             //     disableDragAndDrop: true,
@@ -189,19 +192,19 @@
                 }
             });
 
-            const fullEditorDesc = createFullEditor('#description-editor');
+            // const fullEditorDesc = createFullEditor('#description-editor');
 
-            // Inizializza i campi
-            var initDesc = {!! json_encode(old('description', $stand->description)) !!};
-            var desc = JSON.parse(initDesc);
-            fullEditorDesc.setContents(desc);
+            // // Inizializza i campi
+            // var initDesc = {!! json_encode(old('description', $stand->description)) !!};
+            // var desc = JSON.parse(initDesc);
+            // fullEditorDesc.setContents(desc);
 
-            // Aggiorna i campi nascosti con il contenuto degli editor
-            const form = document.getElementById('myForm');
-            form.addEventListener('submit', () => {
-                desc = fullEditorDesc.getContents();
-                document.getElementById('description').value = JSON.stringify(desc);
-            });
+            // // Aggiorna i campi nascosti con il contenuto degli editor
+            // const form = document.getElementById('myForm');
+            // form.addEventListener('submit', () => {
+            //     desc = fullEditorDesc.getContents();
+            //     document.getElementById('description').value = JSON.stringify(desc);
+            // });
         });
     </script>
 @endsection

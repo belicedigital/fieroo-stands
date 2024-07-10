@@ -187,7 +187,7 @@
                                 role="tab" aria-selected="true">IT</button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link " data-bs-toggle="tab" data-bs-target="#en-pages-tab" role="tab"
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#en-pages-tab" role="tab"
                                 aria-selected="false">EN</button>
                         </li>
                     </ul>
@@ -216,8 +216,7 @@
                                         <div class="form-group mb-3">
                                             <label
                                                 class="form-label fs-6 fw-bolder">{{ trans('forms.description') }}</label>
-                                            <div id="description-editor"> </div>
-                                            <textarea name="description" id="description" class="form-control" style="display: none;"></textarea>
+                                            <div id="description" name="description" class="quillEditor"></div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group mb-3">
@@ -262,8 +261,7 @@
                                         <div class="form-group mb-3">
                                             <label
                                                 class="form-label fs-6 fw-bolder">{{ trans('forms.description') }}</label>
-                                            <div id="description_en-editor"> </div>
-                                            <textarea name="description_en" id="description_en" class="form-control" style="display: none;"></textarea>
+                                            <div id="description_en" name="description_en" class="quillEditor"></div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group mb-3">
@@ -315,25 +313,31 @@
 @section('page-script')
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Set editors
-            const editDesc = createFullEditor('#description-editor');
-            const editDescEn = createFullEditor('#description_en-editor');
+        const editors = document.querySelectorAll('.quillEditor');
+        initEditors(editors, 'myForm', false, {
+            input: 'title',
+            textarea: ['description'],
+        })
 
-            //Sincronizzazione del contenuto degli editor di Quill
-            editDesc.on('text-change', () => {
-                const descriptionContent = editDesc.root.innerHTML
-                editDescEn.root.innerHTML = descriptionContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
-            });
+        // document.addEventListener("DOMContentLoaded", function() {
+        // Set editors
+        // const editDesc = createFullEditor('#description-editor');
+        // const editDescEn = createFullEditor('#description_en-editor');
 
-            const form = document.getElementById('myForm');
-            form.addEventListener('submit', () => {
-                const desc = editDesc.getContents();
-                document.getElementById('description').value = JSON.stringify(desc);
-                const descEn = editDescEn.getContents();
-                document.getElementById('description_en').value = JSON.stringify(descEn);;
-            })
-        });
+        //Sincronizzazione del contenuto degli editor di Quill
+        // editDesc.on('text-change', () => {
+        //     const descriptionContent = editDesc.root.innerHTML
+        //     editDescEn.root.innerHTML = descriptionContent.replace(/(<\/[\w\s="':;]+>)$/, '_EN$1');
+        // });
+
+        // const form = document.getElementById('myForm');
+        // form.addEventListener('submit', () => {
+        //     const desc = editDesc.getContents();
+        //     document.getElementById('description').value = JSON.stringify(desc);
+        //     const descEn = editDescEn.getContents();
+        //     document.getElementById('description_en').value = JSON.stringify(descEn);;
+        // })
+        // });
 
         const noteBtnGroupElements = document.querySelectorAll('.note-btn-group.btn-group.note-insert');
         noteBtnGroupElements.forEach(element => {
@@ -346,11 +350,11 @@
             element.addEventListener('change', handleInputEvent);
         });
 
-        const textareaElements = document.querySelectorAll('textarea');
-        textareaElements.forEach(element => {
-            element.addEventListener('keyup', handleTextareaEvent);
-            element.addEventListener('change', handleTextareaEvent);
-        });
+        // const textareaElements = document.querySelectorAll('textarea');
+        // textareaElements.forEach(element => {
+        //     element.addEventListener('keyup', handleTextareaEvent);
+        //     element.addEventListener('change', handleTextareaEvent);
+        // });
 
         const selectElements = document.querySelectorAll('select');
         selectElements.forEach(element => {
@@ -373,11 +377,11 @@
             }
         }
 
-        function handleTextareaEvent(event) {
-            const name = this.getAttribute('name');
-            const correspondingTextarea = document.querySelector(`textarea[name="${name}_en"]`);
-            correspondingTextarea.value = this.value + '_EN';
-        }
+        // function handleTextareaEvent(event) {
+        //     const name = this.getAttribute('name');
+        //     const correspondingTextarea = document.querySelector(`textarea[name="${name}_en"]`);
+        //     correspondingTextarea.value = this.value + '_EN';
+        // }
 
         function handleSelectEvent(event) {
             const name = this.getAttribute('name');
