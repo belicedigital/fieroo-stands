@@ -5,9 +5,9 @@ namespace Fieroo\Stands\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fieroo\Stands\Models\StandsType;
+use Fieroo\Exhibitors\Models\Category;
 use Fieroo\Stands\Models\StandsTypeTranslation;
 use Validator;
-use DB;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 
@@ -32,7 +32,7 @@ class StandsTypesController extends Controller
      */
     public function create()
     {
-        return view('stands::stands-types.create');
+        return view('stands::stands-types.create', ['categories' => Category::where('is_active', true)->get()]);
     }
 
     /**
@@ -50,7 +50,7 @@ class StandsTypesController extends Controller
             'description_en' => ['required'],
             'price' => ['required', 'numeric'],
             'size' => ['required', 'integer'],
-            'max_number_modules' => ['required', 'integer']
+            'max_number_modules' => ['required', 'integer'],
         ];
 
         $validator = Validator::make($request->all(), $validation_data);
@@ -99,6 +99,14 @@ class StandsTypesController extends Controller
                     'max_number_modules' => $request->max_number_modules,
                 ],
             ]);
+
+            if(!is_null($request->category_id)) {
+                foreach($request->category_id as $category_id) {
+                    $stand_type->categories()->create([
+                        'category_id' => $category_id,
+                    ]);
+                }
+            }
             
             $entity_name = trans('entities.stands_types');
             return redirect('admin/stands-types')->with('success', trans('forms.created_success',['obj' => $entity_name]));
