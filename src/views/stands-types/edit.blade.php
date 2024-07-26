@@ -65,9 +65,9 @@
                                     <label class="form-label fs-6 fw-bolder">{{ trans('entities.categories') }}</label>
                                     <select id="category_id" name="category_id[]" class="form-control" multiple>
                                         <option value="">{{ trans('forms.select_choice') }}</option>
-                                        @foreach ($categories as $category)
+                                        {{-- @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
                                 </div>
                             </div>

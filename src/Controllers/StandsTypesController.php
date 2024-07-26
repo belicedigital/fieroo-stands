@@ -129,7 +129,7 @@ class StandsTypesController extends Controller
     public function edit($id)
     {
         $stand = StandsTypeTranslation::findOrFail($id);
-        $selected_categories_ids = StandTypeCategory::where('stand_type_id', $stand->stand_type_id)->pluck('category_id')->toArray();
+        $selected_categories_ids = StandTypeCategory::where('stand_type_id', $stand->stand_type_id)->pluck('category_id');
         // $categories = Category::where('is_active', true)->get();
         return view('stands::stands-types.edit', [
             'stand' => $stand,
