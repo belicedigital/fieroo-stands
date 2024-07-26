@@ -199,12 +199,12 @@ class StandsTypesController extends Controller
                         ]);
                     }
                 }
+            }
 
-                // delete the old ones that are not in the new array
-                foreach($old_stand_categories as $index => $category_id) {
-                    if(!in_array($category_id, $request->category_id)) {
-                        $update_stand_type->categories()->where('category_id', $category_id)->delete();
-                    }
+            // delete the old ones that are not in the new array
+            foreach($old_stand_categories as $index => $category_id) {
+                if(!in_array($category_id, $request->category_id)) {
+                    $update_stand_type->categories()->where('category_id', $category_id)->delete();
                 }
             }
 
