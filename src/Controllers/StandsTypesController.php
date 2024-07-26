@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fieroo\Stands\Models\StandsType;
 use Fieroo\Exhibitors\Models\Category;
+use Fieroo\Exhibitors\Models\StandTypeCategory;
 use Fieroo\Stands\Models\StandsTypeTranslation;
 use Validator;
 use \Carbon\Carbon;
@@ -128,7 +129,13 @@ class StandsTypesController extends Controller
     public function edit($id)
     {
         $stand = StandsTypeTranslation::findOrFail($id);
-        return view('stands::stands-types.edit', ['stand' => $stand]);
+        $selected_categories_ids = StandTypeCategory::where('stand_type_id', $stand->stand_type_id)->pluck('category_id')->toArray();
+        // $categories = Category::where('is_active', true)->get();
+        return view('stands::stands-types.edit', [
+            'stand' => $stand,
+            // 'categories' => $categories,
+            'selected_categories_ids' => $selected_categories_ids
+        ]);
     }
 
     /**
@@ -180,6 +187,24 @@ class StandsTypesController extends Controller
                 'size' => $request->size,
                 'max_number_modules' => $request->max_number_modules,
             ]);
+
+            $old_stand_categories = $update_stand_type->categories()->pluck('category_id')->toArray();
+
+            // insert the new ones that are not in the old array
+            foreach($request->category_id as $index => $category_id) {
+                if(!in_array($category_id, $old_stand_categories)) {
+                    $update_stand_type->categories()->create([
+                        'category_id' => $category_id,
+                    ]);
+                }
+            }
+
+            // delete the old ones that are not in the new array
+            foreach($old_stand_categories as $index => $category_id) {
+                if(!in_array($category_id, $request->category_id)) {
+                    $update_stand_type->categories()->where('category_id', $category_id)->delete();
+                }
+            }
 
             $entity_name = trans('entities.stands_types');
             return redirect('admin/stands-types')->with('success', trans('forms.updated_success',['obj' => $entity_name]));
